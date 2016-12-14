@@ -1,0 +1,1131 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Import load iris dataset and initiallize it in 'iris' object."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    " from sklearn import datasets\n",
+    "import pandas as pd"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {
+    "collapsed": true,
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "iris = datasets.load_iris()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Since iris is a dictionary type object, we can view it's keys."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "['target_names', 'data', 'target', 'DESCR', 'feature_names']"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "iris.keys()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Let us view the label of the data which is stored in the 'target' key."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n",
+      " 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n",
+      " 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2\n",
+      " 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2\n",
+      " 2 2]\n"
+     ]
+    }
+   ],
+   "source": [
+    "print iris.target"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### We will import GaussianNB NBC fucntion and initialize it "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {
+    "collapsed": true,
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "from sklearn.naive_bayes import GaussianNB"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[[ 5.1  3.5  1.4  0.2]\n",
+      " [ 4.9  3.   1.4  0.2]\n",
+      " [ 4.7  3.2  1.3  0.2]\n",
+      " [ 4.6  3.1  1.5  0.2]\n",
+      " [ 5.   3.6  1.4  0.2]\n",
+      " [ 5.4  3.9  1.7  0.4]\n",
+      " [ 4.6  3.4  1.4  0.3]\n",
+      " [ 5.   3.4  1.5  0.2]\n",
+      " [ 4.4  2.9  1.4  0.2]\n",
+      " [ 4.9  3.1  1.5  0.1]\n",
+      " [ 5.4  3.7  1.5  0.2]\n",
+      " [ 4.8  3.4  1.6  0.2]\n",
+      " [ 4.8  3.   1.4  0.1]\n",
+      " [ 4.3  3.   1.1  0.1]\n",
+      " [ 5.8  4.   1.2  0.2]\n",
+      " [ 5.7  4.4  1.5  0.4]\n",
+      " [ 5.4  3.9  1.3  0.4]\n",
+      " [ 5.1  3.5  1.4  0.3]\n",
+      " [ 5.7  3.8  1.7  0.3]\n",
+      " [ 5.1  3.8  1.5  0.3]\n",
+      " [ 5.4  3.4  1.7  0.2]\n",
+      " [ 5.1  3.7  1.5  0.4]\n",
+      " [ 4.6  3.6  1.   0.2]\n",
+      " [ 5.1  3.3  1.7  0.5]\n",
+      " [ 4.8  3.4  1.9  0.2]\n",
+      " [ 5.   3.   1.6  0.2]\n",
+      " [ 5.   3.4  1.6  0.4]\n",
+      " [ 5.2  3.5  1.5  0.2]\n",
+      " [ 5.2  3.4  1.4  0.2]\n",
+      " [ 4.7  3.2  1.6  0.2]\n",
+      " [ 4.8  3.1  1.6  0.2]\n",
+      " [ 5.4  3.4  1.5  0.4]\n",
+      " [ 5.2  4.1  1.5  0.1]\n",
+      " [ 5.5  4.2  1.4  0.2]\n",
+      " [ 4.9  3.1  1.5  0.1]\n",
+      " [ 5.   3.2  1.2  0.2]\n",
+      " [ 5.5  3.5  1.3  0.2]\n",
+      " [ 4.9  3.1  1.5  0.1]\n",
+      " [ 4.4  3.   1.3  0.2]\n",
+      " [ 5.1  3.4  1.5  0.2]\n",
+      " [ 5.   3.5  1.3  0.3]\n",
+      " [ 4.5  2.3  1.3  0.3]\n",
+      " [ 4.4  3.2  1.3  0.2]\n",
+      " [ 5.   3.5  1.6  0.6]\n",
+      " [ 5.1  3.8  1.9  0.4]\n",
+      " [ 4.8  3.   1.4  0.3]\n",
+      " [ 5.1  3.8  1.6  0.2]\n",
+      " [ 4.6  3.2  1.4  0.2]\n",
+      " [ 5.3  3.7  1.5  0.2]\n",
+      " [ 5.   3.3  1.4  0.2]\n",
+      " [ 7.   3.2  4.7  1.4]\n",
+      " [ 6.4  3.2  4.5  1.5]\n",
+      " [ 6.9  3.1  4.9  1.5]\n",
+      " [ 5.5  2.3  4.   1.3]\n",
+      " [ 6.5  2.8  4.6  1.5]\n",
+      " [ 5.7  2.8  4.5  1.3]\n",
+      " [ 6.3  3.3  4.7  1.6]\n",
+      " [ 4.9  2.4  3.3  1. ]\n",
+      " [ 6.6  2.9  4.6  1.3]\n",
+      " [ 5.2  2.7  3.9  1.4]\n",
+      " [ 5.   2.   3.5  1. ]\n",
+      " [ 5.9  3.   4.2  1.5]\n",
+      " [ 6.   2.2  4.   1. ]\n",
+      " [ 6.1  2.9  4.7  1.4]\n",
+      " [ 5.6  2.9  3.6  1.3]\n",
+      " [ 6.7  3.1  4.4  1.4]\n",
+      " [ 5.6  3.   4.5  1.5]\n",
+      " [ 5.8  2.7  4.1  1. ]\n",
+      " [ 6.2  2.2  4.5  1.5]\n",
+      " [ 5.6  2.5  3.9  1.1]\n",
+      " [ 5.9  3.2  4.8  1.8]\n",
+      " [ 6.1  2.8  4.   1.3]\n",
+      " [ 6.3  2.5  4.9  1.5]\n",
+      " [ 6.1  2.8  4.7  1.2]\n",
+      " [ 6.4  2.9  4.3  1.3]\n",
+      " [ 6.6  3.   4.4  1.4]\n",
+      " [ 6.8  2.8  4.8  1.4]\n",
+      " [ 6.7  3.   5.   1.7]\n",
+      " [ 6.   2.9  4.5  1.5]\n",
+      " [ 5.7  2.6  3.5  1. ]\n",
+      " [ 5.5  2.4  3.8  1.1]\n",
+      " [ 5.5  2.4  3.7  1. ]\n",
+      " [ 5.8  2.7  3.9  1.2]\n",
+      " [ 6.   2.7  5.1  1.6]\n",
+      " [ 5.4  3.   4.5  1.5]\n",
+      " [ 6.   3.4  4.5  1.6]\n",
+      " [ 6.7  3.1  4.7  1.5]\n",
+      " [ 6.3  2.3  4.4  1.3]\n",
+      " [ 5.6  3.   4.1  1.3]\n",
+      " [ 5.5  2.5  4.   1.3]\n",
+      " [ 5.5  2.6  4.4  1.2]\n",
+      " [ 6.1  3.   4.6  1.4]\n",
+      " [ 5.8  2.6  4.   1.2]\n",
+      " [ 5.   2.3  3.3  1. ]\n",
+      " [ 5.6  2.7  4.2  1.3]\n",
+      " [ 5.7  3.   4.2  1.2]\n",
+      " [ 5.7  2.9  4.2  1.3]\n",
+      " [ 6.2  2.9  4.3  1.3]\n",
+      " [ 5.1  2.5  3.   1.1]\n",
+      " [ 5.7  2.8  4.1  1.3]\n",
+      " [ 6.3  3.3  6.   2.5]\n",
+      " [ 5.8  2.7  5.1  1.9]\n",
+      " [ 7.1  3.   5.9  2.1]\n",
+      " [ 6.3  2.9  5.6  1.8]\n",
+      " [ 6.5  3.   5.8  2.2]\n",
+      " [ 7.6  3.   6.6  2.1]\n",
+      " [ 4.9  2.5  4.5  1.7]\n",
+      " [ 7.3  2.9  6.3  1.8]\n",
+      " [ 6.7  2.5  5.8  1.8]\n",
+      " [ 7.2  3.6  6.1  2.5]\n",
+      " [ 6.5  3.2  5.1  2. ]\n",
+      " [ 6.4  2.7  5.3  1.9]\n",
+      " [ 6.8  3.   5.5  2.1]\n",
+      " [ 5.7  2.5  5.   2. ]\n",
+      " [ 5.8  2.8  5.1  2.4]\n",
+      " [ 6.4  3.2  5.3  2.3]\n",
+      " [ 6.5  3.   5.5  1.8]\n",
+      " [ 7.7  3.8  6.7  2.2]\n",
+      " [ 7.7  2.6  6.9  2.3]\n",
+      " [ 6.   2.2  5.   1.5]\n",
+      " [ 6.9  3.2  5.7  2.3]\n",
+      " [ 5.6  2.8  4.9  2. ]\n",
+      " [ 7.7  2.8  6.7  2. ]\n",
+      " [ 6.3  2.7  4.9  1.8]\n",
+      " [ 6.7  3.3  5.7  2.1]\n",
+      " [ 7.2  3.2  6.   1.8]\n",
+      " [ 6.2  2.8  4.8  1.8]\n",
+      " [ 6.1  3.   4.9  1.8]\n",
+      " [ 6.4  2.8  5.6  2.1]\n",
+      " [ 7.2  3.   5.8  1.6]\n",
+      " [ 7.4  2.8  6.1  1.9]\n",
+      " [ 7.9  3.8  6.4  2. ]\n",
+      " [ 6.4  2.8  5.6  2.2]\n",
+      " [ 6.3  2.8  5.1  1.5]\n",
+      " [ 6.1  2.6  5.6  1.4]\n",
+      " [ 7.7  3.   6.1  2.3]\n",
+      " [ 6.3  3.4  5.6  2.4]\n",
+      " [ 6.4  3.1  5.5  1.8]\n",
+      " [ 6.   3.   4.8  1.8]\n",
+      " [ 6.9  3.1  5.4  2.1]\n",
+      " [ 6.7  3.1  5.6  2.4]\n",
+      " [ 6.9  3.1  5.1  2.3]\n",
+      " [ 5.8  2.7  5.1  1.9]\n",
+      " [ 6.8  3.2  5.9  2.3]\n",
+      " [ 6.7  3.3  5.7  2.5]\n",
+      " [ 6.7  3.   5.2  2.3]\n",
+      " [ 6.3  2.5  5.   1.9]\n",
+      " [ 6.5  3.   5.2  2. ]\n",
+      " [ 6.2  3.4  5.4  2.3]\n",
+      " [ 5.9  3.   5.1  1.8]]\n"
+     ]
+    }
+   ],
+   "source": [
+    "model = GaussianNB()\n",
+    "print iris.data"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### we will store the data (with all the features) into an np.array object 'x' and the labels into 'y'"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 50,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([[ 5.1,  3.5,  1.4,  0.2],\n",
+       "       [ 4.9,  3. ,  1.4,  0.2],\n",
+       "       [ 4.7,  3.2,  1.3,  0.2],\n",
+       "       [ 4.6,  3.1,  1.5,  0.2],\n",
+       "       [ 5. ,  3.6,  1.4,  0.2],\n",
+       "       [ 5.4,  3.9,  1.7,  0.4],\n",
+       "       [ 4.6,  3.4,  1.4,  0.3],\n",
+       "       [ 5. ,  3.4,  1.5,  0.2],\n",
+       "       [ 4.4,  2.9,  1.4,  0.2],\n",
+       "       [ 4.9,  3.1,  1.5,  0.1],\n",
+       "       [ 5.4,  3.7,  1.5,  0.2],\n",
+       "       [ 4.8,  3.4,  1.6,  0.2],\n",
+       "       [ 4.8,  3. ,  1.4,  0.1],\n",
+       "       [ 4.3,  3. ,  1.1,  0.1],\n",
+       "       [ 5.8,  4. ,  1.2,  0.2],\n",
+       "       [ 5.7,  4.4,  1.5,  0.4],\n",
+       "       [ 5.4,  3.9,  1.3,  0.4],\n",
+       "       [ 5.1,  3.5,  1.4,  0.3],\n",
+       "       [ 5.7,  3.8,  1.7,  0.3],\n",
+       "       [ 5.1,  3.8,  1.5,  0.3],\n",
+       "       [ 5.4,  3.4,  1.7,  0.2],\n",
+       "       [ 5.1,  3.7,  1.5,  0.4],\n",
+       "       [ 4.6,  3.6,  1. ,  0.2],\n",
+       "       [ 5.1,  3.3,  1.7,  0.5],\n",
+       "       [ 4.8,  3.4,  1.9,  0.2],\n",
+       "       [ 5. ,  3. ,  1.6,  0.2],\n",
+       "       [ 5. ,  3.4,  1.6,  0.4],\n",
+       "       [ 5.2,  3.5,  1.5,  0.2],\n",
+       "       [ 5.2,  3.4,  1.4,  0.2],\n",
+       "       [ 4.7,  3.2,  1.6,  0.2],\n",
+       "       [ 4.8,  3.1,  1.6,  0.2],\n",
+       "       [ 5.4,  3.4,  1.5,  0.4],\n",
+       "       [ 5.2,  4.1,  1.5,  0.1],\n",
+       "       [ 5.5,  4.2,  1.4,  0.2],\n",
+       "       [ 4.9,  3.1,  1.5,  0.1],\n",
+       "       [ 5. ,  3.2,  1.2,  0.2],\n",
+       "       [ 5.5,  3.5,  1.3,  0.2],\n",
+       "       [ 4.9,  3.1,  1.5,  0.1],\n",
+       "       [ 4.4,  3. ,  1.3,  0.2],\n",
+       "       [ 5.1,  3.4,  1.5,  0.2],\n",
+       "       [ 5. ,  3.5,  1.3,  0.3],\n",
+       "       [ 4.5,  2.3,  1.3,  0.3],\n",
+       "       [ 4.4,  3.2,  1.3,  0.2],\n",
+       "       [ 5. ,  3.5,  1.6,  0.6],\n",
+       "       [ 5.1,  3.8,  1.9,  0.4],\n",
+       "       [ 4.8,  3. ,  1.4,  0.3],\n",
+       "       [ 5.1,  3.8,  1.6,  0.2],\n",
+       "       [ 4.6,  3.2,  1.4,  0.2],\n",
+       "       [ 5.3,  3.7,  1.5,  0.2],\n",
+       "       [ 5. ,  3.3,  1.4,  0.2],\n",
+       "       [ 7. ,  3.2,  4.7,  1.4],\n",
+       "       [ 6.4,  3.2,  4.5,  1.5],\n",
+       "       [ 6.9,  3.1,  4.9,  1.5],\n",
+       "       [ 5.5,  2.3,  4. ,  1.3],\n",
+       "       [ 6.5,  2.8,  4.6,  1.5],\n",
+       "       [ 5.7,  2.8,  4.5,  1.3],\n",
+       "       [ 6.3,  3.3,  4.7,  1.6],\n",
+       "       [ 4.9,  2.4,  3.3,  1. ],\n",
+       "       [ 6.6,  2.9,  4.6,  1.3],\n",
+       "       [ 5.2,  2.7,  3.9,  1.4],\n",
+       "       [ 5. ,  2. ,  3.5,  1. ],\n",
+       "       [ 5.9,  3. ,  4.2,  1.5],\n",
+       "       [ 6. ,  2.2,  4. ,  1. ],\n",
+       "       [ 6.1,  2.9,  4.7,  1.4],\n",
+       "       [ 5.6,  2.9,  3.6,  1.3],\n",
+       "       [ 6.7,  3.1,  4.4,  1.4],\n",
+       "       [ 5.6,  3. ,  4.5,  1.5],\n",
+       "       [ 5.8,  2.7,  4.1,  1. ],\n",
+       "       [ 6.2,  2.2,  4.5,  1.5],\n",
+       "       [ 5.6,  2.5,  3.9,  1.1],\n",
+       "       [ 5.9,  3.2,  4.8,  1.8],\n",
+       "       [ 6.1,  2.8,  4. ,  1.3],\n",
+       "       [ 6.3,  2.5,  4.9,  1.5],\n",
+       "       [ 6.1,  2.8,  4.7,  1.2],\n",
+       "       [ 6.4,  2.9,  4.3,  1.3],\n",
+       "       [ 6.6,  3. ,  4.4,  1.4],\n",
+       "       [ 6.8,  2.8,  4.8,  1.4],\n",
+       "       [ 6.7,  3. ,  5. ,  1.7],\n",
+       "       [ 6. ,  2.9,  4.5,  1.5],\n",
+       "       [ 5.7,  2.6,  3.5,  1. ],\n",
+       "       [ 5.5,  2.4,  3.8,  1.1],\n",
+       "       [ 5.5,  2.4,  3.7,  1. ],\n",
+       "       [ 5.8,  2.7,  3.9,  1.2],\n",
+       "       [ 6. ,  2.7,  5.1,  1.6],\n",
+       "       [ 5.4,  3. ,  4.5,  1.5],\n",
+       "       [ 6. ,  3.4,  4.5,  1.6],\n",
+       "       [ 6.7,  3.1,  4.7,  1.5],\n",
+       "       [ 6.3,  2.3,  4.4,  1.3],\n",
+       "       [ 5.6,  3. ,  4.1,  1.3],\n",
+       "       [ 5.5,  2.5,  4. ,  1.3],\n",
+       "       [ 5.5,  2.6,  4.4,  1.2],\n",
+       "       [ 6.1,  3. ,  4.6,  1.4],\n",
+       "       [ 5.8,  2.6,  4. ,  1.2],\n",
+       "       [ 5. ,  2.3,  3.3,  1. ],\n",
+       "       [ 5.6,  2.7,  4.2,  1.3],\n",
+       "       [ 5.7,  3. ,  4.2,  1.2],\n",
+       "       [ 5.7,  2.9,  4.2,  1.3],\n",
+       "       [ 6.2,  2.9,  4.3,  1.3],\n",
+       "       [ 5.1,  2.5,  3. ,  1.1],\n",
+       "       [ 5.7,  2.8,  4.1,  1.3],\n",
+       "       [ 6.3,  3.3,  6. ,  2.5],\n",
+       "       [ 5.8,  2.7,  5.1,  1.9],\n",
+       "       [ 7.1,  3. ,  5.9,  2.1],\n",
+       "       [ 6.3,  2.9,  5.6,  1.8],\n",
+       "       [ 6.5,  3. ,  5.8,  2.2],\n",
+       "       [ 7.6,  3. ,  6.6,  2.1],\n",
+       "       [ 4.9,  2.5,  4.5,  1.7],\n",
+       "       [ 7.3,  2.9,  6.3,  1.8],\n",
+       "       [ 6.7,  2.5,  5.8,  1.8],\n",
+       "       [ 7.2,  3.6,  6.1,  2.5],\n",
+       "       [ 6.5,  3.2,  5.1,  2. ],\n",
+       "       [ 6.4,  2.7,  5.3,  1.9],\n",
+       "       [ 6.8,  3. ,  5.5,  2.1],\n",
+       "       [ 5.7,  2.5,  5. ,  2. ],\n",
+       "       [ 5.8,  2.8,  5.1,  2.4],\n",
+       "       [ 6.4,  3.2,  5.3,  2.3],\n",
+       "       [ 6.5,  3. ,  5.5,  1.8],\n",
+       "       [ 7.7,  3.8,  6.7,  2.2],\n",
+       "       [ 7.7,  2.6,  6.9,  2.3],\n",
+       "       [ 6. ,  2.2,  5. ,  1.5],\n",
+       "       [ 6.9,  3.2,  5.7,  2.3],\n",
+       "       [ 5.6,  2.8,  4.9,  2. ],\n",
+       "       [ 7.7,  2.8,  6.7,  2. ],\n",
+       "       [ 6.3,  2.7,  4.9,  1.8],\n",
+       "       [ 6.7,  3.3,  5.7,  2.1],\n",
+       "       [ 7.2,  3.2,  6. ,  1.8],\n",
+       "       [ 6.2,  2.8,  4.8,  1.8],\n",
+       "       [ 6.1,  3. ,  4.9,  1.8],\n",
+       "       [ 6.4,  2.8,  5.6,  2.1],\n",
+       "       [ 7.2,  3. ,  5.8,  1.6],\n",
+       "       [ 7.4,  2.8,  6.1,  1.9],\n",
+       "       [ 7.9,  3.8,  6.4,  2. ],\n",
+       "       [ 6.4,  2.8,  5.6,  2.2],\n",
+       "       [ 6.3,  2.8,  5.1,  1.5],\n",
+       "       [ 6.1,  2.6,  5.6,  1.4],\n",
+       "       [ 7.7,  3. ,  6.1,  2.3],\n",
+       "       [ 6.3,  3.4,  5.6,  2.4],\n",
+       "       [ 6.4,  3.1,  5.5,  1.8],\n",
+       "       [ 6. ,  3. ,  4.8,  1.8],\n",
+       "       [ 6.9,  3.1,  5.4,  2.1],\n",
+       "       [ 6.7,  3.1,  5.6,  2.4],\n",
+       "       [ 6.9,  3.1,  5.1,  2.3],\n",
+       "       [ 5.8,  2.7,  5.1,  1.9],\n",
+       "       [ 6.8,  3.2,  5.9,  2.3],\n",
+       "       [ 6.7,  3.3,  5.7,  2.5],\n",
+       "       [ 6.7,  3. ,  5.2,  2.3],\n",
+       "       [ 6.3,  2.5,  5. ,  1.9],\n",
+       "       [ 6.5,  3. ,  5.2,  2. ],\n",
+       "       [ 6.2,  3.4,  5.4,  2.3],\n",
+       "       [ 5.9,  3. ,  5.1,  1.8]])"
+      ]
+     },
+     "execution_count": 50,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "import numpy as np\n",
+    "x = np.array(iris.data)\n",
+    "x"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {
+    "collapsed": true,
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "y = np.array(iris.target)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(150,)"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "y.shape"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Now lets split the data into train and test data, this is the part where you can experiment. I have chosen a train test split of 0.6, \n",
+    "you can try different splits and check how this is changing the accuracy in different techniques which will basically \n",
+    "tell us about how much data a particular technique needs to perform good."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {
+    "collapsed": true,
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "from sklearn.cross_validation import train_test_split"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "X_train, X_test,Y_train,Y_test = train_test_split(x,y,train_size = 0.6)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(90, 4)"
+      ]
+     },
+     "execution_count": 17,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "X_train.shape"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Let us fit our model on training data and training label set"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "GaussianNB()"
+      ]
+     },
+     "execution_count": 18,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "model.fit(X_train,Y_train)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Lets us do some predictions on test data"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([0, 2, 2, 2, 1, 2, 1, 0, 0, 2, 0, 1, 2, 2, 1, 1, 2, 0, 0, 1, 0, 2, 0,\n",
+       "       0, 2, 1, 2, 0, 2, 0, 0, 0, 2, 1, 0, 2, 0, 1, 2, 1, 0, 2, 1, 2, 1, 0,\n",
+       "       2, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 2, 1])"
+      ]
+     },
+     "execution_count": 19,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "model.predict(X_test)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### In this part we will create a new pandas dataframe 'compare' which will compare our actual labels and predicted ones. \n",
+    "We will later add one more column which will contain predicted labels from Logistic regression model."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "compare = pd.DataFrame(Y_test)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "compare['predicted'] = model.predict(X_test)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>0</th>\n",
+       "      <th>predicted</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>0</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>2</td>\n",
+       "      <td>2</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>2</td>\n",
+       "      <td>2</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>2</td>\n",
+       "      <td>2</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   0  predicted\n",
+       "0  0          0\n",
+       "1  2          2\n",
+       "2  2          2\n",
+       "3  2          2\n",
+       "4  1          1"
+      ]
+     },
+     "execution_count": 28,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "compare.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Let's rename our columns."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "compare.columns = ['actual','predicted']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>actual</th>\n",
+       "      <th>predicted</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>0</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>2</td>\n",
+       "      <td>2</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>2</td>\n",
+       "      <td>2</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>2</td>\n",
+       "      <td>2</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   actual  predicted\n",
+       "0       0          0\n",
+       "1       2          2\n",
+       "2       2          2\n",
+       "3       2          2\n",
+       "4       1          1"
+      ]
+     },
+     "execution_count": 32,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "compare.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Create a new object which contains the number of rows in 'compare' where actual = predicted. We will use this figure to calculate accuracy of our model"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 35,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "correct_NBC = compare[compare['actual']==compare['predicted']].shape[0]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 36,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0.9833333333333333"
+      ]
+     },
+     "execution_count": 36,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "float(correct_NBC)/compare.shape[0]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Now let us also build a Logistic Regression model over the same data and same train test split , just to compare which model is giving a better accuracy."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 38,
+   "metadata": {
+    "collapsed": true,
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "from sklearn.linear_model import LogisticRegression"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 39,
+   "metadata": {
+    "collapsed": true,
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "Logit = LogisticRegression()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 40,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,\n",
+       "          intercept_scaling=1, max_iter=100, multi_class='ovr', n_jobs=1,\n",
+       "          penalty='l2', random_state=None, solver='liblinear', tol=0.0001,\n",
+       "          verbose=0, warm_start=False)"
+      ]
+     },
+     "execution_count": 40,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "Logit.fit(X_train,Y_train)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 41,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([0, 2, 2, 2, 1, 2, 1, 0, 0, 2, 0, 2, 2, 2, 2, 1, 2, 0, 0, 1, 0, 2, 0,\n",
+       "       0, 2, 1, 2, 0, 2, 0, 0, 0, 2, 1, 0, 2, 0, 1, 2, 1, 0, 2, 2, 2, 1, 0,\n",
+       "       2, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 2, 2])"
+      ]
+     },
+     "execution_count": 41,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "Logit.predict(X_test)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 43,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>actual</th>\n",
+       "      <th>predicted</th>\n",
+       "      <th>predicted_logit</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>0</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>2</td>\n",
+       "      <td>2</td>\n",
+       "      <td>2</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>2</td>\n",
+       "      <td>2</td>\n",
+       "      <td>2</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>2</td>\n",
+       "      <td>2</td>\n",
+       "      <td>2</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   actual  predicted  predicted_logit\n",
+       "0       0          0                0\n",
+       "1       2          2                2\n",
+       "2       2          2                2\n",
+       "3       2          2                2\n",
+       "4       1          1                1"
+      ]
+     },
+     "execution_count": 43,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "compare['predicted_logit'] = Logit.predict(X_test)\n",
+    "compare.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 44,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "Correct_logit = compare[compare['predicted_logit']==compare['actual']].shape[0]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 45,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0.95"
+      ]
+     },
+     "execution_count": 45,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "float(Correct_logit)/compare.shape[0]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 48,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0.9833333333333333"
+      ]
+     },
+     "execution_count": 48,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "float(correct_NBC)/compare.shape[0]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Now, what you can do is : probably try experimenting with lesser number of features, for example, as I've done below, take only a few columns from X_train and then implement both of these models(NBC, logistic regression) and compare accuracies of both. This will give you a better idea about which model requires more features and which one requires lesser features and how the accuracy depends on the number of features."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "model_less_features.fit(X_train[:,1:],Y_train)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### This marks the end of our brief tutorial on Naive bayes Classifier"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "To explore more about how to build a NBC from scratch , here are a few nice links which would help :\n",
+    "    \n",
+    "    http://machinelearningmastery.com/naive-bayes-classifier-scratch-python/\n",
+    "    http://www.machinephilosopher.com/spam-filter-python-bayes/\n",
+    "    http://blog.yhat.com/posts/naive-bayes-in-python.html"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 2",
+   "language": "python",
+   "name": "python2"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 2
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython2",
+   "version": "2.7.12"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}
